@@ -1,0 +1,33 @@
+{
+  "name": "Particles",
+  "author": "Flynn Duniho",
+  "version": "1.0.0",
+  "keywords": [],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "Particles",
+    "uuid": "0123436a-206c-4c7e-a753-4f1ef89eb188",
+    "sdkVersion": "3",
+    "enableMultiJS": false,
+    "watchapp": {
+      "watchface": false
+    },
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "resources": {
+      "media": [
+        {
+          "file": "images/face.png",
+          "menuIcon": true,
+          "name": "IMAGE_MENU_ICON",
+          "type": "bitmap"
+        }
+      ]
+    }
+  }
+}

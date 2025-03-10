@@ -117,6 +117,7 @@ static void physics_frame() {
     ball->vy = ball->vy * ball->friction_percent / 100;
     ball->x += ball->vx;
     ball->y += ball->vy;
+#ifdef PB_RECT
     if (ball->y + ball->radius > height) {
       ball->y = height - ball->radius;
       ball->vy = -ball->vy * ball->restitution_percent / 100;
@@ -133,16 +134,25 @@ static void physics_frame() {
       ball->x = ball->radius;
       ball->vx = -ball->vx * ball->restitution_percent / 100;
     }
+#else
+    int d_sqr = dist_sqr(ball->x, ball->y, width / 2, height / 2);
+    int max_dist = (width / 2) - ball->radius;
+    if (d_sqr > max_dist * max_dist) {
+      int d = isqrt(d_sqr);
+      int newx = (ball->x - width / 2) * max_dist / d + width / 2;
+      int newy = (ball->y - width / 2) * max_dist / d + width / 2;
+      ball->vx += (newx - ball->x) * ball->restitution_percent / 100;
+      ball->vy += (newy - ball->y) * ball->restitution_percent / 100;
+      ball->x = newx;
+      ball->y = newy;
+    }
+#endif
     for (size_t j = 0; j < NUM_BALLS; j++) {
       if (j == i) {
         continue;
       }
       resolve_collision(ball, &balls[j]);
     }
-    /* APP_LOG(APP_LOG_LEVEL_DEBUG, "x: %i, y: %i, vx: %i, vy: %i",
-     * (int)ball->x,
-     */
-    /*         (int)ball->y, (int)ball->vx, (int)ball->vy); */
   }
 }
 
@@ -180,7 +190,7 @@ static void main_window_load(Window *window) {
     ball->vx = (rand() % (10 * SCALE)) - 5 * SCALE;
     ball->vy = (rand() % (10 * SCALE)) - 5 * SCALE;
     ball->restitution_percent = 80;
-    ball->friction_percent = 90;
+    ball->friction_percent = 100;
     ball->mass = 1;
     ball->color = colors[i % num_colors];
   }

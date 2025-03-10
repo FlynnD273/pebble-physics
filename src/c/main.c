@@ -117,7 +117,7 @@ static void physics_frame() {
     ball->vy = ball->vy * ball->friction_percent / 100;
     ball->x += ball->vx;
     ball->y += ball->vy;
-#ifdef PB_RECT
+#ifdef PBL_RECT
     if (ball->y + ball->radius > height) {
       ball->y = height - ball->radius;
       ball->vy = -ball->vy * ball->restitution_percent / 100;
@@ -190,7 +190,7 @@ static void main_window_load(Window *window) {
     ball->vx = (rand() % (10 * SCALE)) - 5 * SCALE;
     ball->vy = (rand() % (10 * SCALE)) - 5 * SCALE;
     ball->restitution_percent = 80;
-    ball->friction_percent = 100;
+    ball->friction_percent = 90;
     ball->mass = 1;
     ball->color = colors[i % num_colors];
   }

@@ -170,10 +170,17 @@ static void accel_data_handler(AccelData *data, uint32_t count) {
 }
 
 static void main_window_load(Window *window) {
+#ifdef PBL_COLOR
   GColor colors[] = {
       GColorVividViolet,    GColorCadetBlue, GColorGreen,
       GColorFashionMagenta, GColorBlueMoon,  GColorWhite,
   };
+#else
+  GColor colors[] = {
+      GColorLightGray,
+      GColorWhite,
+  };
+#endif
   accel = (AccelData *)malloc(sizeof(AccelData));
   accel_service_peek(accel);
   Layer *window_layer = window_get_root_layer(window);

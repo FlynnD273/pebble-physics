@@ -64,7 +64,7 @@ uint32_t isqrt(uint32_t n) {
   return root;
 }
 
-static int dist_sqr(uint x1, uint y1, uint x2, uint y2) {
+static int dist_sqr(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2) {
   int dx = x1 - x2;
   int dy = y1 - y2;
   return dx * dx + dy * dy;
